@@ -1,3 +1,13 @@
+# Diego Narvaez Hernandez  
+# UNIVERSITY OF NORTH TEXAS  
+# CSCE 3550: JWKS Program  
+# Instructor: Dr. Jacob Hochstetler  
+# September 22, 2024  
+# Student Number: 11512562  
+# EUID: dn0240
+
+
+
 from flask import Flask, jsonify, request
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import serialization
