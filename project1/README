@@ -1,0 +1,55 @@
+Evaluation of the two provided files based on the project requirements:
+1. Key Generation and Key Expiry (p1_4.py):
+RSA Key Pair Generation:
+
+The generate_rsa_key() function correctly implements RSA key generation using cryptography.hazmat.primitives.asymmetric.rsa.
+It generates both a private and a public key, where the public key is serialized in the JWKS format.
+Key ID (kid) and Expiry Timestamp:
+
+The kid is based on the current time (time.time()), ensuring a unique identifier for each key.
+An expiry time is associated with each key by adding EXPIRE_TIME to the current time when a key is generated. The expiry timestamp is stored with the key in the keys dictionary.
+2. Web Server with Two Handlers:
+JWKS Endpoint:
+
+The /jwks endpoint serves only unexpired public keys. This is done by filtering the keys dictionary and returning keys where the expiry timestamp is greater than the current time (time.time()).
+/auth Endpoint:
+
+The /auth endpoint issues a JWT signed with an unexpired key.
+The functionality to handle the expired query parameter is implemented. If the parameter is present, the server issues a JWT using an expired key, which correctly meets the requirements.
+HTTP Methods, Headers, and Status Codes:
+
+The server uses POST requests for generating keys and issuing JWTs, which is consistent with REST principles.
+HTTP status codes (e.g., 200 OK) are correctly used in responses.
+3. Documentation:
+Code Organization:
+
+The code is organized into routes and functions, and the logic for handling RSA keys and JWTs is encapsulated in appropriate functions (generate_rsa_key(), generate_key_pair(), etc.).
+Comments:
+
+There are some comments explaining key functions, but additional inline comments could improve readability, especially around JWT generation and handling the expired parameter in the /auth endpoint.
+Linting:
+
+The code appears to follow standard formatting conventions, but no explicit linting rules (e.g., PEP8) are mentioned or enforced.
+4. Testing (tstsuite_4.py):
+Test Coverage:
+The test suite includes tests for all key functionality:
+The home route (test_homepage)
+Key generation (test_generate_key_pair)
+The /jwks endpoint (test_jwks_endpoint)
+JWT issuance (test_auth_endpoint)
+Expired key handling (test_expired_key_auth)
+Expiry time checks (test_expire_time)
+Blackbox Testing:
+Tests mimic client requests using Flask’s testing client, which ensures that the endpoints function correctly.
+Test Coverage Over 80%:
+Given the scope of the test cases, it appears likely that the coverage is above 80%. The tests cover both regular key generation and expired key edge cases, as well as JWT issuance.
+Conclusion:
+The implementation meets the key project requirements:
+
+RSA key generation with unique kid and expiry.
+Proper handling of JWT issuance and JWKS endpoints.
+A clear, well-structured test suite covering essential functionality.
+Areas of Improvement:
+
+Additional comments to clarify specific operations.
+Ensure that the code is linted per framework/language standards (e.g., PEP8 in Python).
